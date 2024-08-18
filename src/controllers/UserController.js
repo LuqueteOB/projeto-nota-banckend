@@ -14,16 +14,32 @@ class UserController {
     return response.json(dados);
   }
 
-  criar(request, response) {
-    const body = request.body;
-    const password = MD5(body.password).toString();
-    body.password = password;
-    const confirmPassword = MD5(body.confirmPassword).toString();
-    body.confirmPassword = confirmPassword;
-    UserModel.create(body);
-    return response.status(201).json({
-      message: "Usuário cadastrado com sucesso",
-    });
+  async criar(request, response) {
+    try {
+      const body = request.body;
+      const password = MD5(body.password).toString();
+      const confirmPassword = MD5(body.confirmPassword).toString();
+
+      if (password !== confirmPassword) {
+        return response.status(400).json({
+          message: "As senhas não coincidem.",
+        });
+      }
+
+      body.password = password;
+      const newUser = await UserModel.create(body);
+
+      return response.status(201).json({
+        message: "Usuário cadastrado com sucesso",
+        user: newUser,
+      });
+    } catch (error) {
+      console.error(error);
+      return response.status(500).json({
+        message: "Erro ao cadastrar o usuário.",
+        error: error.message,
+      });
+    }
   }
 
   async atualizar(request, response) {

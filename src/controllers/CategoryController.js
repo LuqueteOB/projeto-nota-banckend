@@ -15,12 +15,26 @@ class CategoryController {
 
   async criar(request, response) {
     const body = request.body;
-    console.log(body);
 
-    await Category.create(body);
-    return response.status(201).json({
-      message: "Categoria cadastrada com sucesso",
-    });
+    try {
+      if (body.use_in_menu === undefined) {
+        return response.status(400).json({
+          message: "Todos os campos são obrigatório.",
+        });
+      }
+
+      const novaCategoria = await Category.create(body);
+      return response.status(201).json({
+        message: "Categoria cadastrada com sucesso",
+        categoria: novaCategoria,
+      });
+    } catch (error) {
+      console.error("Erro ao cadastrar categoria:", error.message);
+      return response.status(500).json({
+        message: "Erro ao cadastrar categoria",
+        error: error.message,
+      });
+    }
   }
 
   async atualizar(request, response) {

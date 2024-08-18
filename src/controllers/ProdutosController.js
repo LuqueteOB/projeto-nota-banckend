@@ -23,130 +23,161 @@ ProdutosModel.belongsTo(OptionsProdutos, {
 
 class ProdutosController {
   async listar(request, response) {
-    const id = request.body.id;
-    const dados = await ProdutosModel.findAll({
-      attributes: [
-        "id",
-        "enabled",
-        "name",
-        "slug",
-        "stock",
-        "description",
-        "price",
-        "price_with_discount",
-      ],
-      include: [
-        {
-          model: Category,
-          as: "category_ids",
-          attributes: ["id", "name"],
-        },
-        {
-          model: ImageModel,
-          as: "image",
-          attributes: ["id", "content"],
-        },
-        {
-          model: OptionsProdutos,
-          as: "options",
-          attributes: ["title", "shape", "radius", "stock", "type", "values"],
-        },
-      ],
-    });
-
-    return response.json(dados);
+    try {
+      const dados = await ProdutosModel.findAll({
+        attributes: [
+          "id",
+          "enabled",
+          "name",
+          "slug",
+          "stock",
+          "description",
+          "price",
+          "price_with_discount",
+        ],
+        include: [
+          {
+            model: Category,
+            as: "category_ids",
+            attributes: ["id", "name"],
+          },
+          {
+            model: ImageModel,
+            as: "image",
+            attributes: ["id", "content"],
+          },
+          {
+            model: OptionsProdutos,
+            as: "options",
+            attributes: ["title", "shape", "radius", "stock", "type", "values"],
+          },
+        ],
+      });
+      return response.status(200).json(dados);
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ message: "Erro ao listar produtos", error });
+    }
   }
 
   async consultarPorId(request, response) {
     const id = request.params.id;
-    const dados = await ProdutosModel.findByPk(id, {
-      attributes: [
-        "id",
-        "enabled",
-        "name",
-        "slug",
-        "stock",
-        "description",
-        "price",
-        "price_with_discount",
-      ],
-      include: [
-        {
-          model: Category,
-          as: "category_ids",
-          attributes: ["id", "name"],
-        },
-        {
-          model: ImageModel,
-          as: "image",
-          attributes: ["id", "content"],
-        },
-        {
-          model: OptionsProdutos,
-          as: "options",
-          attributes: ["title", "shape", "radius", "stock", "type", "values"],
-        },
-      ],
-    });
-    return response.json(dados);
+    try {
+      const dados = await ProdutosModel.findByPk(id, {
+        attributes: [
+          "id",
+          "enabled",
+          "name",
+          "slug",
+          "stock",
+          "description",
+          "price",
+          "price_with_discount",
+        ],
+        include: [
+          {
+            model: Category,
+            as: "category_ids",
+            attributes: ["id", "name"],
+          },
+          {
+            model: ImageModel,
+            as: "image",
+            attributes: ["id", "content"],
+          },
+          {
+            model: OptionsProdutos,
+            as: "options",
+            attributes: ["title", "shape", "radius", "stock", "type", "values"],
+          },
+        ],
+      });
+
+      if (!dados) {
+        return response.status(404).json({ message: "Produto não encontrado" });
+      }
+
+      return response.status(200).json(dados);
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ message: "Erro ao consultar produto", error });
+    }
   }
 
   async criar(request, response) {
-    const body = request.body;
-    await ProdutosModel.create(body);
-    return response.status(201).json({
-      message: "Produto cadastrado com sucesso",
-    });
+    const { name, slug, price, stock, description, price_with_discount } =
+      request.body;
+
+    if (
+      !name ||
+      !slug ||
+      price === undefined ||
+      stock === undefined ||
+      description === undefined ||
+      price_with_discount === undefined
+    ) {
+      return response.status(400).json({
+        message: "Todos os campos são obrigatórios.",
+      });
+    }
+
+    try {
+      const produto = await ProdutosModel.create(request.body);
+      return response.status(201).json({
+        message: "Produto cadastrado com sucesso",
+      });
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ message: "Erro ao cadastrar produto", error });
+    }
   }
 
   async atualizar(request, response) {
     const id = request.params.id;
     const body = request.body;
-    await ProdutosModel.update(body, {
-      attributes: [
-        "id",
-        "enabled",
-        "name",
-        "slug",
-        "stock",
-        "description",
-        "price",
-        "price_with_discount",
-      ],
-      where: { id: id },
-      include: [
-        {
-          model: Category,
-          as: "category_ids",
-          attributes: ["id", "name"],
-        },
-        {
-          model: ImageModel,
-          as: "image",
-          attributes: ["id", "content"],
-        },
-        {
-          model: OptionsProdutos,
-          as: "options",
-          attributes: ["title", "shape", "radius", "stock", "type", "values"],
-        },
-      ],
-    });
-    return response.json({
-      message: "Produto atualizado com Sucesso",
-    });
+
+    try {
+      const [updated] = await ProdutosModel.update(body, {
+        where: { id: id },
+      });
+
+      if (updated) {
+        return response.status(200).json({
+          message: "Produto atualizado com sucesso",
+        });
+      }
+
+      return response.status(404).json({ message: "Produto não encontrado" });
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ message: "Erro ao atualizar produto", error });
+    }
   }
 
   async deletar(request, response) {
     const id = request.params.id;
 
-    await OptionsProdutos.destroy({ where: { product_id: id } });
+    try {
+      await OptionsProdutos.destroy({ where: { product_id: id } });
 
-    await ProdutosModel.destroy({ where: { id } });
+      const deleted = await ProdutosModel.destroy({ where: { id } });
 
-    return response.json({
-      message: "Produto e opções deletados com sucesso",
-    });
+      if (deleted) {
+        return response.status(200).json({
+          message: "Produto deletado com sucesso",
+        });
+      }
+
+      return response.status(404).json({ message: "Produto não encontrado" });
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ message: "Erro ao deletar produto", error });
+    }
   }
 
   async pesquisa(request, response) {
@@ -158,46 +189,53 @@ class ProdutosController {
 
     const offset = (page - 1) * limit;
 
-    const produtos = await ProdutosModel.findAndCountAll({
-      where: whereClause,
-      limit: limit === "-1" ? null : parseInt(limit),
-      offset: limit === "-1" ? null : offset,
-      attributes: fields ? fields.split(",") : undefined,
-      attributes: [
-        "id",
-        "enabled",
-        "name",
-        "slug",
-        "stock",
-        "description",
-        "price",
-        "price_with_discount",
-      ],
-      include: [
-        {
-          model: Category,
-          as: "category_ids",
-          attributes: ["id", "name"],
-        },
-        {
-          model: ImageModel,
-          as: "image",
-          attributes: ["id", "content"],
-        },
-        {
-          model: OptionsProdutos,
-          as: "options",
-          attributes: ["title", "shape", "radius", "stock", "type", "values"],
-        },
-      ],
-    });
+    try {
+      const produtos = await ProdutosModel.findAndCountAll({
+        where: whereClause,
+        limit: limit === "-1" ? null : parseInt(limit),
+        offset: limit === "-1" ? null : offset,
+        attributes: fields
+          ? fields.split(",")
+          : [
+              "id",
+              "enabled",
+              "name",
+              "slug",
+              "stock",
+              "description",
+              "price",
+              "price_with_discount",
+            ],
+        include: [
+          {
+            model: Category,
+            as: "category_ids",
+            attributes: ["id", "name"],
+          },
+          {
+            model: ImageModel,
+            as: "image",
+            attributes: ["id", "content"],
+          },
+          {
+            model: OptionsProdutos,
+            as: "options",
+            attributes: ["title", "shape", "radius", "stock", "type", "values"],
+          },
+        ],
+      });
 
-    return response.json({
-      data: produtos.rows,
-      total: produtos.count,
-      limit: parseInt(limit),
-      page: parseInt(page),
-    });
+      return response.status(200).json({
+        data: produtos.rows,
+        total: produtos.count,
+        limit: parseInt(limit),
+        page: parseInt(page),
+      });
+    } catch (error) {
+      return response
+        .status(500)
+        .json({ message: "Erro na pesquisa de produtos", error });
+    }
   }
 }
 

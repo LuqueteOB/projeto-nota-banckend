@@ -1,7 +1,7 @@
 {
   "_type": "export",
   "__export_format": 4,
-  "__export_date": "2024-08-15T21:35:56.749Z",
+  "__export_date": "2024-08-18T17:37:44.489Z",
   "__export_source": "insomnia.desktop.app:v9.3.3",
   "resources": [
     {
@@ -167,7 +167,7 @@
     {
       "_id": "req_12aedb539e14408cb97d7f46499e9b62",
       "parentId": "fld_5c978827adc140de81eadb31d3440887",
-      "modified": 1723418664023,
+      "modified": 1723991391371,
       "created": 1723250494548,
       "url": "http://localhost:3000/users",
       "name": "CRIAR",
@@ -175,7 +175,7 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n\t\"firstname\": \"Lucas\",\n\t\"surname\": \"Souza\",\n\t\"email\": \"lucas45@gmail.com\",\n\t\"password\": \"1234\",\n\t\"confirmPassword\": \"1234\"\n}"
+        "text": "{\n\t\"firstname\": \"souza\",\n\t\"surname\": \"Souza\",\n\t\"email\": \"lucas45@gmail.com\",\n\t\"password\": \"1234\",\n\t\"confirmPassword\": \"1234\"\n}"
       },
       "parameters": [],
       "headers": [
@@ -249,9 +249,9 @@
     {
       "_id": "req_f2f15b6ba79a47b5b51943f0f0d59966",
       "parentId": "fld_5c978827adc140de81eadb31d3440887",
-      "modified": 1723250513302,
+      "modified": 1724002268629,
       "created": 1723250513302,
-      "url": "http://localhost:3000/users/1",
+      "url": "http://localhost:3000/users/2",
       "name": "CONSULTAR/ID",
       "description": "",
       "method": "GET",
@@ -260,7 +260,15 @@
       "headers": [
         {
           "name": "User-Agent",
-          "value": "insomnia/9.3.3"
+          "value": "insomnia/9.3.3",
+          "id": "pair_2c70a549c1f54a028852203749cf72e9"
+        },
+        {
+          "id": "pair_d31af9ef92dc48a28207082e9377aa04",
+          "name": "auth",
+          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiZW1haWwiOiJqb2Fvc2lsdmE1NEBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImpvYW8iLCJleHAiOjE3MjMxNDAzMDIsImlhdCI6MTcyMzEzNjcwMn0.3LF0NTz9cfhdguxLEFp9bGcWtx9utmxQVWxep5rV4qw",
+          "description": "",
+          "disabled": false
         }
       ],
       "authentication": {},
@@ -278,7 +286,7 @@
     {
       "_id": "req_5c84d4a20caa462d9faf7757ad2e41e6",
       "parentId": "fld_5c978827adc140de81eadb31d3440887",
-      "modified": 1723394724999,
+      "modified": 1724002639055,
       "created": 1723231362521,
       "url": "http://localhost:3000/users/2",
       "name": "ATUALIZAR",
@@ -305,7 +313,7 @@
           "name": "auth",
           "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tZSI6Ik1heCIsImxvZ2luIjoibWF4IiwiZXhwIjoxNzIzMDU1MDUxLCJpYXQiOjE3MjMwNTE0NTF9.ocLGT93Vo2Wk3F9W-rWY7-zb2TAsrelh_MT7wv1EhYs",
           "description": "",
-          "disabled": true
+          "disabled": false
         }
       ],
       "authentication": {},
@@ -323,9 +331,9 @@
     {
       "_id": "req_54ba671b881f4d3d8ecf3b1df59390e0",
       "parentId": "fld_5c978827adc140de81eadb31d3440887",
-      "modified": 1723419541330,
+      "modified": 1724002247805,
       "created": 1723231351506,
-      "url": "http://localhost:3000/users/3",
+      "url": "http://localhost:3000/users/1",
       "name": "DELETAR",
       "description": "",
       "method": "DELETE",
@@ -360,7 +368,7 @@
     {
       "_id": "req_be599903f38d48c493fc8f852ca84a3e",
       "parentId": "fld_47ca4298ad45425787b17fcdbd35beec",
-      "modified": 1723481679974,
+      "modified": 1724001867807,
       "created": 1723229514643,
       "url": "http://localhost:3000/categorias",
       "name": "CRIAR",
@@ -368,7 +376,7 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "    {\n      \"name\": \"Shoes3\",\n      \"slug\": \"shoes3\",\n      \"use_in_menu\": false\n    }"
+        "text": "    {\n      \"name\": \"Shoes3\",\n      \"slug\": \"shoes3\",\n      \"use_in_menu\": true\n    }"
       },
       "parameters": [],
       "headers": [
@@ -610,7 +618,7 @@
     {
       "_id": "req_30617fc09ba04dbba131985bde76120c",
       "parentId": "fld_6d7eb0ddce2349538a36feb76efb6d6e",
-      "modified": 1723481715515,
+      "modified": 1724001892304,
       "created": 1723231915593,
       "url": "http://localhost:3000/produto",
       "name": "CRIAR",
@@ -618,7 +626,7 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n    \"enabled\": true,\n    \"name\": \"Produto 01\",\n    \"slug\": \"produto-01\",\n    \"stock\": 10,\n    \"description\": \"Descrição-do-produto-03\",\n    \"price\": 119.90,\n    \"price_with_discount\": 99.90\n}"
+        "text": "{\n    \"enabled\": true,\n    \"name\": \"Produto 03\",\n    \"slug\": \"produto-03\",\n    \"stock\": 10,\n    \"description\": \"Descrição-do-produto-03\",\n    \"price\": 119.90,\n    \"price_with_discount\": 99.90\n}"
       },
       "parameters": [],
       "headers": [
@@ -667,7 +675,7 @@
     {
       "_id": "req_1590f7eaa6754e77877e724663f2b9c1",
       "parentId": "fld_6d7eb0ddce2349538a36feb76efb6d6e",
-      "modified": 1723468929528,
+      "modified": 1723991266310,
       "created": 1723293554912,
       "url": "http://localhost:3000/produto",
       "name": "CRIAR2",
@@ -675,7 +683,7 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "{\n    \"enabled\": true,\n    \"name\": \"Produto 03\",\n    \"slug\": \"produto-03\",\n    \"stock\": 10,\n    \"description\": \"Descrição-do-produto-03\",\n    \"price\": 119.90,\n    \"price_with_discount\": 99.90,\n    \"tags\": [1, 2]\n}"
+        "text": "{\n    \"enabled\": true,\n    \"name\": \"Produto 03\",\n    \"slug\": \"produto-03\",\n    \"stock\": 10,\n    \"description\": \"Descrição-do-produto-03\",\n    \"price\": 119.90,\n    \"price_with_discount\": 99.90,\n    \"tags\": [1, 3]\n}"
       },
       "parameters": [],
       "headers": [
@@ -749,9 +757,9 @@
     {
       "_id": "req_d47695b283eb4654aedd13fd34bb7cab",
       "parentId": "fld_6d7eb0ddce2349538a36feb76efb6d6e",
-      "modified": 1723348524043,
+      "modified": 1723936344997,
       "created": 1723231955294,
-      "url": "http://localhost:3000/produto/1",
+      "url": "http://localhost:3000/produto/7",
       "name": "CONSULTAR/ID",
       "description": "",
       "method": "GET",
@@ -868,9 +876,9 @@
     {
       "_id": "req_073b8cbb1d894f819d8a44531cc3a821",
       "parentId": "fld_6d7eb0ddce2349538a36feb76efb6d6e",
-      "modified": 1723487295232,
+      "modified": 1724001710587,
       "created": 1723231935621,
-      "url": "http://localhost:3000/produto/3",
+      "url": "http://localhost:3000/produto/4",
       "name": "DELETAR",
       "description": "",
       "method": "DELETE",
@@ -905,7 +913,7 @@
     {
       "_id": "req_2aaa13c743f949a99a833b02d8fad9b0",
       "parentId": "fld_ef155aa722bb4ac4b216818e65913bb1",
-      "modified": 1723487339059,
+      "modified": 1724001910915,
       "created": 1723345723416,
       "url": "http://localhost:3000/Produtos",
       "name": "CRIAR",
@@ -913,7 +921,7 @@
       "method": "POST",
       "body": {
         "mimeType": "application/json",
-        "text": "    {\n\t\t\t\"product_id\": 4,\n\t\t\t\"title\": \"Produto-4\",\n\t\t\t\"shape\": \"square\",\n\t\t\t\"radius\": 0,\n\t\t\t\"stock\": 10,\n\t\t\t\"type\": \"text\",\n\t\t\t\"values\":\"[ 42, 43]\",\n\t\t\t\"tags\": [ 1, 2 ]\n    }"
+        "text": "    {\n\t\t\t\"product_id\": 3,\n\t\t\t\"title\": \"Produto-3\",\n\t\t\t\"shape\": \"square\",\n\t\t\t\"radius\": 0,\n\t\t\t\"stock\": 10,\n\t\t\t\"type\": \"text\",\n\t\t\t\"values\": \"[42, 43]\",\n\t\t\t\"category_ids\": [1, 3]\n    }"
       },
       "parameters": [],
       "headers": [
@@ -1081,9 +1089,9 @@
     {
       "_id": "req_6526b80be4e04b9ca5e9608ee48dfb3e",
       "parentId": "fld_ef155aa722bb4ac4b216818e65913bb1",
-      "modified": 1723419112218,
+      "modified": 1724002125159,
       "created": 1723228499095,
-      "url": "http://localhost:3000/categorias/3",
+      "url": "http://localhost:3000/Produtos/2",
       "name": "DELETAR",
       "description": "",
       "method": "DELETE",
@@ -1118,7 +1126,7 @@
     {
       "_id": "req_bddf5b78152e408e94533f696f92ddcb",
       "parentId": "fld_02f2df9284de46d1bf7f46277f7d4b8f",
-      "modified": 1723481779215,
+      "modified": 1723992008540,
       "created": 1723223321778,
       "url": "http://localhost:3000/imagem",
       "name": "CRIAR",
@@ -1212,9 +1220,9 @@
     {
       "_id": "req_df318a91837646989b131c77fcb81002",
       "parentId": "fld_02f2df9284de46d1bf7f46277f7d4b8f",
-      "modified": 1723251078565,
+      "modified": 1724002228421,
       "created": 1723224939314,
-      "url": "http://localhost:3000/imagem/1",
+      "url": "http://localhost:3000/imagem/2",
       "name": "CONSULTAR/ID",
       "description": "",
       "method": "GET",
@@ -1223,7 +1231,15 @@
       "headers": [
         {
           "name": "User-Agent",
-          "value": "insomnia/9.3.3"
+          "value": "insomnia/9.3.3",
+          "id": "pair_c472e74cbd184eb3a3bacc7e6be01d1c"
+        },
+        {
+          "id": "pair_501112a02d7b4f1292e2e85537ff1938",
+          "name": "auth",
+          "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6OSwiZW1haWwiOiJqb2Fvc2lsdmE1NEBnbWFpbC5jb20iLCJ1c2VybmFtZSI6ImpvYW8iLCJleHAiOjE3MjMxNDAzMDIsImlhdCI6MTcyMzEzNjcwMn0.3LF0NTz9cfhdguxLEFp9bGcWtx9utmxQVWxep5rV4qw",
+          "description": "",
+          "disabled": false
         }
       ],
       "authentication": {},
@@ -1241,7 +1257,7 @@
     {
       "_id": "req_9a7e89c214444182a26c6601ed3747d2",
       "parentId": "fld_02f2df9284de46d1bf7f46277f7d4b8f",
-      "modified": 1723394759640,
+      "modified": 1724002207323,
       "created": 1723250523664,
       "url": "http://localhost:3000/imagem/2",
       "name": "ATUALIZAR",
@@ -1268,7 +1284,7 @@
           "name": "auth",
           "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibm9tZSI6Ik1heCIsImxvZ2luIjoibWF4IiwiZXhwIjoxNzIzMDU1MDUxLCJpYXQiOjE3MjMwNTE0NTF9.ocLGT93Vo2Wk3F9W-rWY7-zb2TAsrelh_MT7wv1EhYs",
           "description": "",
-          "disabled": true
+          "disabled": false
         }
       ],
       "authentication": {},

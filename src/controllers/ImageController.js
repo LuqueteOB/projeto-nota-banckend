@@ -14,10 +14,15 @@ class ImageController {
   }
 
   async criar(request, response) {
-    const body = request.body;
-    console.log(body);
+    const { content, type } = request.body;
 
-    await ImageModel.create(body);
+    if (!content || !type) {
+      return response.status(400).json({
+        message: "Os campos 'content' e 'type' são obrigatórios.",
+      });
+    }
+
+    await ImageModel.create({ content, type });
     return response.status(201).json({
       message: "Imagem cadastrada com sucesso",
     });
